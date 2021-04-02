@@ -27,6 +27,9 @@ Some flow diagrams can help you to understand the application proposal.
 ### Activities Diagram
 ![Activities Diagram](docs/diagrams-activities-diagram.jpg "Activities Diagram")
 
+### ER Diagram
+![ER Diagram](docs/er-diagram.jpg "ER Diagram")
+
 ---
 ## Routes 🌎
 
