@@ -13,6 +13,30 @@
 |
 */
 
+$teste = 'a';
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(
+    [
+        'middleware'    => 'auth.transfer',
+        'prefix'        => 'api'
+    ],
+    function () use ($router) {
+        $router->post(
+            '/transfer-values',
+            function () {
+                return ['hello' => 'world'];
+            }
+        );
+
+        $router->post(
+            '/detail-transfers',
+            function () {
+                return ['hello' => 'world'];
+            }
+        );
+    }
+);

@@ -38,7 +38,7 @@ Some flow diagrams can help you to understand the application proposal.
 ---
 ## Middleware 🔞
 
-### TransferAuth
+### TransferAuthMiddleware
 
 ---
 ## Controllers 🎮
