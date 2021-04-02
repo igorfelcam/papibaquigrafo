@@ -42,13 +42,13 @@ class TransferAuthMiddleware
         } catch (\Exception $ex) {
             // transfer log $ex->getMessage()
             return new JsonResponse(
-				[
-					'status'    => false,
-					'data'      => [],
-					'message'   => "Unauthorized to transfer"
-				],
-				401
-			);
+                [
+                    'status'    => false,
+                    'data'      => [],
+                    'message'   => "Unauthorized to transfer"
+                ],
+                401
+            );
         }
     }
 }

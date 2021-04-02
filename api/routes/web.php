@@ -13,8 +13,6 @@
 |
 */
 
-$teste = 'a';
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
@@ -26,17 +24,13 @@ $router->group(
     ],
     function () use ($router) {
         $router->post(
-            '/transfer-values',
-            function () {
-                return ['hello' => 'world'];
-            }
+            '/values-transfers',
+            'TransferController@valuesTransfers'
         );
 
         $router->post(
-            '/detail-transfers',
-            function () {
-                return ['hello' => 'world'];
-            }
+            '/transfers-details',
+            'TransferController@transfersDetails'
         );
     }
 );

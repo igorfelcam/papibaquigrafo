@@ -32,8 +32,8 @@ Some flow diagrams can help you to understand the application proposal.
 
 |Method |Action                 |Params|
 |-------|-----------------------|------------------|
-|POST   |`.../transfer-values`  |`user email payer`, `user email payee`, `value`|
-|GET    |`.../detail-transfers` |`user email`|
+|POST   |`.../values-transfers` |`user email payer`, `user email payee`, `value`|
+|GET    |`.../transfers-details`|`user email`|
 
 ---
 ## Middleware 🔞
@@ -44,9 +44,13 @@ Some flow diagrams can help you to understand the application proposal.
 ## Controllers 🎮
 
 ### TransferController
-
+- valuesTransfers()
+- transfersDetails()
 ---
 ## Services 💰
+
+### TransferAuthService
+- hasTransferAuth()
 
 ### WalletService
 - hasBalanceToValue($value)
