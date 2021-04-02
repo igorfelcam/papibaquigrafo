@@ -32,8 +32,8 @@ Some flow diagrams can help you to understand the application proposal.
 
 |Method |Action                 |Params|
 |-------|-----------------------|------------------|
-|POST   |`.../transferValue`    |`user email payer`, `user email payee`, `value`|
-|POST   |`.../myTransfers`      |`user email`|
+|POST   |`.../transfer-values`  |`user email payer`, `user email payee`, `value`|
+|GET    |`.../detail-transfers` |`user email`|
 
 ---
 ## Controllers 🎮
