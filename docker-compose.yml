@@ -4,12 +4,14 @@ services:
     api:
       build: .
       ports:
-        - "8080:80"
+        - "8080:8080"
       volumes:
-        - ./api/:/usr/share/nginx
+        - ./api:/api
+      working_dir: /api
+      command: php -S 0.0.0.0:8080 -t public
       networks:
         - app-network
-    
+
     mysql-app:
       image: mysql:5.7
       command: --innodb-use-native-aio=0
