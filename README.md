@@ -13,6 +13,13 @@ And access the address in your browser:
 http://localhost:8080/
 ```
 
+To use test database, run:
+```bash
+php artisan migrate
+```
+```bash
+php artisan db:seed
+```
 ---
 ## Diagrams 🤯
 

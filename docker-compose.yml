@@ -22,6 +22,8 @@ services:
       environment:
         MYSQL_DATABASE: papibaquigrafo
         MYSQL_ROOT_PASSWORD: papibaquigrafo
+        MYSQL_USER: papibaquigrafo
+        MYSQL_PASSWORD: papibaquigrafo
       networks:
           - app-network
 
