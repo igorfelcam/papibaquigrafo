@@ -8,6 +8,13 @@ services:
       volumes:
         - ./api:/api
       working_dir: /api
+      links:
+        - mysql-app
+      environment:
+        DB_HOST: mysql-app
+        DB_DATABASE: papibaquigrafo
+        DB_USERNAME: root
+        DB_PASSWORD: papibaquigrafo
       command: php -S 0.0.0.0:8080 -t public
       networks:
         - app-network

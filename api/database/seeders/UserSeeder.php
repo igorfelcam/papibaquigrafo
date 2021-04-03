@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'email'     => 'a@test.com',
             'document'  => '12345678912',
             'password'  => Hash::make('password'),
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
 
         DB::table('users')->insert([
@@ -27,6 +28,7 @@ class UserSeeder extends Seeder
             'email'     => 'b@test.com',
             'document'  => '78945612378',
             'password'  => Hash::make('password'),
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
 
         DB::table('users')->insert([
@@ -34,6 +36,7 @@ class UserSeeder extends Seeder
             'email'     => 'c@test.com',
             'document'  => '12345678000190',
             'password'  => Hash::make('password'),
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
 
         DB::table('users')->insert([
@@ -41,6 +44,7 @@ class UserSeeder extends Seeder
             'email'     => 'd@test.com',
             'document'  => '98765432000110',
             'password'  => Hash::make('password'),
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
     }
 }

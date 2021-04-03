@@ -16,22 +16,26 @@ class WalletSeeder extends Seeder
     {
         DB::table('wallets')->insert([
             'owner' => password_hash('a@test.com:12345678912', PASSWORD_DEFAULT),
-            'value' => 100
+            'value' => 100,
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
 
         DB::table('wallets')->insert([
             'owner' => password_hash('b@test.com:78945612378', PASSWORD_DEFAULT),
-            'value' => 100
+            'value' => 100,
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
 
         DB::table('wallets')->insert([
             'owner' => password_hash('c@test.com:12345678000190', PASSWORD_DEFAULT),
-            'value' => 50
+            'value' => 50,
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
 
         DB::table('wallets')->insert([
             'owner' => password_hash('d@test.com:98765432000110', PASSWORD_DEFAULT),
-            'value' => 0
+            'value' => 0,
+            'created_at'=> date('Y-m-d H:i:s', time()),
         ]);
     }
 }

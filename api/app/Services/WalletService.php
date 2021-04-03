@@ -2,49 +2,54 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client as GuzzleClient;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Wallet\WalletRepositoryInterface;
 
-class TransferAuthService
+class WalletService
 {
     /**
-     * @var $guzzleClient
+     * @var $user
+     * @var $wallet
      */
-    private $guzzleClient;
+    private $user;
+    private $wallet;
 
     /**
      * TransferAuthService constructor
      *
-     * @param GuzzleClient $guzzleClient
+     * @param UserRepositoryInterface $user
+     * @param WalletRepositoryInterface $wallet
      * @return void
      */
-    public function __construct(GuzzleClient $guzzleClient)
+    public function __construct(WalletRepositoryInterface $wallet, UserRepositoryInterface $user)
     {
-        $this->guzzleClient = $guzzleClient;
+        $this->user     = $user;
+        $this->wallet   = $wallet;
     }
 
     /**
-     * Check if has authorized to make a transfer
+     * Get payer user wallet
      *
-     * @return bool
+     * @param string $user_email_payer
+     * @return \Wallet
      */
-    public function hasTransferAuth()
+    public function getUserWallet($user_email_payer)
     {
-        $response = $this->guzzleClient->request(
-            "GET",
-            "https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6"
-        );
+        $user               = $this->user->getUser($user_email_payer);
+        $probable_wallets   = $this->wallet->getProbableWalletsToUser($user->created_at->timestamp);
+        $payer_wallet       = null;
 
-        $response_status    = $response->getStatusCode();
-        $response_body      = json_decode($response->getBody()->getContents());
-
-        if (
-            $response_status !== 200 ||
-            !isset($response_body->message) ||
-            $response_body->message !== "Autorizado"
-        ) {
-            return false;
+        foreach ($probable_wallets as $wallet) {
+            if (password_verify("$user->email:$user->document", $wallet->owner)) {
+                $payer_wallet = $wallet;
+                break;
+            }
         }
 
-        return true;
+        if ($payer_wallet === null) {
+            throw new \Exception("Wallet payer not found");
+        }
+
+        return $payer_wallet;
     }
 }

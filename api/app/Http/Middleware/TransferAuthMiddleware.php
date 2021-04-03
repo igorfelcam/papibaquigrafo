@@ -3,24 +3,31 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Services\TransferAuthService;
+
 use Illuminate\Http\JsonResponse;
+
+use App\Repositories\User\UserRepositoryInterface;
+use App\Services\TransferAuthService;
 
 class TransferAuthMiddleware
 {
     /**
+     * @var $user
      * @var $transferAuthService
      */
+    private $user;
     private $transferAuthService;
 
     /**
      * TransferAuthMiddleware constructor
      *
+     * @param UserRepositoryInterface $user
      * @param TransferAuthService $transferAuthService
      */
-    public function __construct(TransferAuthService $transferAuthService)
+    public function __construct(UserRepositoryInterface $user, TransferAuthService $transferAuthService)
     {
-        $this->transferAuthService = $transferAuthService;
+        $this->user                 = $user;
+        $this->transferAuthService  = $transferAuthService;
     }
 
     /**
@@ -33,6 +40,14 @@ class TransferAuthMiddleware
     public function handle($request, Closure $next)
     {
         try {
+            if (empty($this->user->getUser($request->user_email_payer))) {
+                throw new \Exception("Payer not found");
+            }
+
+            if (empty($this->user->getUser($request->user_email_payee))) {
+                throw new \Exception("Payee not found");
+            }
+
             if (!$this->transferAuthService->hasTransferAuth()) {
                 throw new \Exception("Error Processing Authorization");
             }
