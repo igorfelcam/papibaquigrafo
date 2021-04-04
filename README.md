@@ -66,43 +66,31 @@ Some flow diagrams can help you to understand the application proposal.
 
 ---
 ## Job 🕐
-
 ### NotificationJob
 
 ![Running Queue](docs/queue_proccess.jpg "Running Queue")
 ---
 ## Middleware 🔞
-
 ### TransferAuthMiddleware
-
 ---
 ## Rules ✔️
-
 ### EmailRule
 ### ValueRule
-
 ---
 ## Controllers 🎮
-
 ### TransferController
-- valuesTransfers()
-- transfersDetails()
 ---
 ## Services 💰
 
+### NotificationService
 ### TransferAuthService
-- hasTransferAuth()
-
 ### WalletService
-- hasBalanceToValue($value)
-- sendValue($value, $payer, $payee)
 
 ---
 ## Repositories 🔍
-### WalletRepository
-- updateValue($owner, $value)
-
 ### TransferLogRepository
+### WalletRepository
+### WalletRepository
 
 ---
 ## Models 💾

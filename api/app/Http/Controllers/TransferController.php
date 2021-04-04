@@ -116,45 +116,6 @@ class TransferController extends Controller
     }
 
     /**
-     * Request detail user transfers
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function transfersDetails()
-    {
-        try {
-            $transferLogEvent   = new TransferLogEvent();
-
-            return new JsonResponse(
-                [
-                    'status'    => true,
-                    'data'      => [],
-                    'message'   => ""
-                ],
-                200
-            );
-        } catch (\Exception $ex) {
-
-            $transferLogEvent->payer_email  = '';
-            $transferLogEvent->payee_email  = '';
-            $transferLogEvent->value        = '';
-            $transferLogEvent->message      = '';
-            $transferLogEvent->status       = "error";
-
-            event($transferLogEvent);
-
-            return new JsonResponse(
-                [
-                    'status'    => false,
-                    'data'      => [],
-                    'message'   => ""
-                ],
-                400
-            );
-        }
-    }
-
-    /**
      * Validates the request data
      *
      * @return array $data
