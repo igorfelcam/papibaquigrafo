@@ -13,6 +13,7 @@ use App\Services\TransferAuthService;
 use App\Rules\EmailRule;
 use App\Rules\ValueRule;
 use App\Events\TransferLogEvent;
+use App\Jobs\NotificationJob;
 
 class TransferController extends Controller
 {
@@ -82,9 +83,7 @@ class TransferController extends Controller
 
             event($transferLogEvent);
 
-
-            // notification queue
-
+            dispatch(new NotificationJob($data['user_email_payee']));
 
             return new JsonResponse(
                 [

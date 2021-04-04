@@ -20,6 +20,11 @@ php artisan migrate
 ```bash
 php artisan db:seed
 ```
+
+To process the queue that sends the transfer notification to the user, run:
+```bash
+php artisan queue:listen
+```
 ---
 ## Diagrams 🤯
 
@@ -46,10 +51,17 @@ Some flow diagrams can help you to understand the application proposal.
 |GET    |`.../transfers-details`|`user email`|
 
 ---
+## Job 🕐
+
+### NotificationJob
+
+![Running Queue](docs/queue_proccess.jpg "Running Queue")
+---
 ## Middleware 🔞
 
 ### TransferAuthMiddleware
 
+---
 ## Rules ✔️
 
 ### EmailRule
@@ -85,5 +97,3 @@ Some flow diagrams can help you to understand the application proposal.
 ### Wallet
 
 ### TransferLog
-
-### Job
