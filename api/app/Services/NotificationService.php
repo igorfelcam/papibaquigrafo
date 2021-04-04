@@ -37,12 +37,6 @@ class NotificationService
         $response_status    = $response->getStatusCode();
         $response_body      = json_decode($response->getBody()->getContents());
 
-var_dump(
-    $user_email,
-    $response_status,
-    $response_body
-);die;
-
         if (
             $response_status !== 200 ||
             !isset($response_body->message) ||

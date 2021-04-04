@@ -2,6 +2,21 @@
 
 Clone and run, simple as that!
 
+---
+## Dev environment onfiguration .env
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=papibaquigrafo
+DB_USERNAME=root
+DB_PASSWORD=papibaquigrafo
+
+CACHE_DRIVER=file
+QUEUE_CONNECTION=database
+```
+---
 ## Attention ⚠️
 
 Run command:
@@ -48,7 +63,6 @@ Some flow diagrams can help you to understand the application proposal.
 |Method |Action                 |Params|
 |-------|-----------------------|------------------|
 |POST   |`.../values-transfers` |`user email payer`, `user email payee`, `value`|
-|GET    |`.../transfers-details`|`user email`|
 
 ---
 ## Job 🕐
