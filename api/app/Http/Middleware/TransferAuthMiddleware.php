@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\TransferAuthService;
+use App\Events\TransferLogEvent;
 
 class TransferAuthMiddleware
 {
@@ -23,6 +24,7 @@ class TransferAuthMiddleware
      *
      * @param UserRepositoryInterface $user
      * @param TransferAuthService $transferAuthService
+     * @return void
      */
     public function __construct(UserRepositoryInterface $user, TransferAuthService $transferAuthService)
     {
@@ -55,7 +57,17 @@ class TransferAuthMiddleware
             return $next($request);
 
         } catch (\Exception $ex) {
-            // transfer log $ex->getMessage()
+
+            $transferLogEvent = new TransferLogEvent();
+
+            $transferLogEvent->payer_email  = $request->user_email_payer;
+            $transferLogEvent->payee_email  = $request->user_email_payee;
+            $transferLogEvent->value        = $request->value;
+            $transferLogEvent->message      = $ex->getMessage();
+            $transferLogEvent->status       = "error";
+
+            event($transferLogEvent);
+
             return new JsonResponse(
                 [
                     'status'    => false,

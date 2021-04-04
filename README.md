@@ -50,6 +50,11 @@ Some flow diagrams can help you to understand the application proposal.
 
 ### TransferAuthMiddleware
 
+## Rules ✔️
+
+### EmailRule
+### ValueRule
+
 ---
 ## Controllers 🎮
 
@@ -73,8 +78,6 @@ Some flow diagrams can help you to understand the application proposal.
 
 ### TransferLogRepository
 
-### SystemLogRepository
-
 ---
 ## Models 💾
 ### User
@@ -82,7 +85,5 @@ Some flow diagrams can help you to understand the application proposal.
 ### Wallet
 
 ### TransferLog
-
-### SystemLog
 
 ### Job

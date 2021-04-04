@@ -15,10 +15,11 @@ class CreateTransferLogsTable extends Migration
     {
         Schema::create('transfer_logs', function (Blueprint $table) {
             $table->id();
-            $table->integer('payer_wallet_id');
-            $table->integer('payee_wallet_id');
+            $table->string('payer_email');
+            $table->string('payee_email');
+            $table->string('value');
+            $table->string('message');
             $table->string('status');
-            $table->integer('value');
             $table->timestamps();
         });
     }

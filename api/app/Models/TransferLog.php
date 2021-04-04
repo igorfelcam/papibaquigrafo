@@ -19,9 +19,10 @@ class TransferLog extends Model implements AuthenticatableContract, Authorizable
      * @var array
      */
     protected $fillable = [
-        'payer_wallet_id',
-        'payee_wallet_id',
-        'status',
-        'value'
+        'payer_email',
+        'payee_email',
+        'value',
+        'message',
+        'status'
     ];
 }

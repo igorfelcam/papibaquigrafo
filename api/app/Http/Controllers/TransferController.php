@@ -12,6 +12,7 @@ use App\Services\WalletService;
 use App\Services\TransferAuthService;
 use App\Rules\EmailRule;
 use App\Rules\ValueRule;
+use App\Events\TransferLogEvent;
 
 class TransferController extends Controller
 {
@@ -51,9 +52,9 @@ class TransferController extends Controller
     public function valuesTransfers()
     {
         try {
-            $data = $this->validateRequestData();
-
-            $payer_wallet = $this->walletService->getUserWallet($data['user_email_payer']);
+            $transferLogEvent   = new TransferLogEvent();
+            $data               = $this->validateRequestData();
+            $payer_wallet       = $this->walletService->getUserWallet($data['user_email_payer']);
 
             if ($this->transferAuthService->userIsShopkeeper($data['user_email_payer'])) {
                 throw new \Exception("Shopkeeper cannot transfer");
@@ -71,11 +72,19 @@ class TransferController extends Controller
 
                 $payee_wallet->value = $payee_wallet->value + $data['value'];
                 $payee_wallet->save();
-
-                // register success transfer log
             });
 
+            $transferLogEvent->payer_email  = $data['user_email_payer'];
+            $transferLogEvent->payee_email  = $data['user_email_payee'];
+            $transferLogEvent->value        = $data['value'];
+            $transferLogEvent->message      = "Transfer complete";
+            $transferLogEvent->status       = "success";
+
+            event($transferLogEvent);
+
+
             // notification queue
+
 
             return new JsonResponse(
                 [
@@ -87,12 +96,20 @@ class TransferController extends Controller
             );
         }
         catch (\Exception $ex) {
-            // transfer log $ex->getMessage()
+
+            $transferLogEvent->payer_email  = $data['user_email_payer'];
+            $transferLogEvent->payee_email  = $data['user_email_payee'];
+            $transferLogEvent->value        = $data['value'];
+            $transferLogEvent->message      = $ex->getMessage();
+            $transferLogEvent->status       = "error";
+
+            event($transferLogEvent);
+
             return new JsonResponse(
                 [
                     'status'    => false,
                     'data'      => [],
-                    'message'   => $ex->getMessage()
+                    'message'   => "An error occurred while performing the transfer"
                 ],
                 400
             );
@@ -107,20 +124,26 @@ class TransferController extends Controller
     public function transfersDetails()
     {
         try {
-            $data = $this->request->only([
-                'user_email'
-            ]);
+            $transferLogEvent   = new TransferLogEvent();
 
             return new JsonResponse(
                 [
                     'status'    => true,
-                    'data'      => $data,
+                    'data'      => [],
                     'message'   => ""
                 ],
                 200
             );
         } catch (\Exception $ex) {
-            // transfer log $ex->getMessage()
+
+            $transferLogEvent->payer_email  = '';
+            $transferLogEvent->payee_email  = '';
+            $transferLogEvent->value        = '';
+            $transferLogEvent->message      = '';
+            $transferLogEvent->status       = "error";
+
+            event($transferLogEvent);
+
             return new JsonResponse(
                 [
                     'status'    => false,
